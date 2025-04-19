@@ -1,0 +1,41 @@
+package com.qa.opencart.pages;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+
+import com.qa.opencart.constants.AppConstants;
+import com.qa.opencart.utils.ElementUtils;
+
+public class ProductInfoPage {
+	
+	private WebDriver driver;
+	private ElementUtils eleUtil;
+
+	// 1. private By locators: OR
+	private final By productHeader = By.tagName("h1");
+	private final By productImages = By.cssSelector("ul.thumbnails img");
+
+	// 2. public page constructor
+	public ProductInfoPage(WebDriver driver) {
+		this.driver = driver;
+		eleUtil = new ElementUtils(driver);
+	}
+	
+	
+	public String getProductHeader(){
+		String header = eleUtil.waitForElementVisible(productHeader, AppConstants.DEFAULT_TIMEOUT).getText();
+		System.out.println("product header: "+ header);
+		return header;
+	}
+	
+	public int getProductImagesCount() {
+		int imageCount = 
+				eleUtil.waitForAllElementsVisible(productImages, AppConstants.MEDIUM_DEFAULT_TIMEOUT).size();
+		System.out.println("Total number of images: " + imageCount);
+		return imageCount;
+		
+	}
+	
+	
+
+}
