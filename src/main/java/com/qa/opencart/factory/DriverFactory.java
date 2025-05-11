@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Properties;
 
+import com.qa.opencart.logger.Log;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
@@ -29,7 +30,7 @@ public class DriverFactory {
 		
 		String browserName = prop.getProperty("browser");
 		
-		System.out.println("browser name : " + browserName);
+		Log.info("browser name : " + browserName);
 
 		switch (browserName.toLowerCase().trim()) {
 		case "chrome":
@@ -46,7 +47,7 @@ public class DriverFactory {
 			break;
 
 		default:
-			System.out.println("plz pass the valid browser name..." + browserName);
+			Log.error("plz pass the valid browser name..." + browserName);
 			throw new BrowserException("===INVALID BROWSER===");
 		}
 
