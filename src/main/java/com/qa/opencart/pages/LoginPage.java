@@ -17,6 +17,7 @@ public class LoginPage {
 	private final By password = By.id("input-password");
 	private final By loginBtn = By.xpath("//input[@value='Login']");
 	private final By forgotPwdLink = By.linkText("Forgotten Password");
+	private final By registerLink = By.linkText("Register");
 
 	// 2. public page constr...
 	public LoginPage(WebDriver driver) {
@@ -51,9 +52,9 @@ public class LoginPage {
 		return new AccountsPage(driver);
 	}
 
-	
-	
-	
-	
-	
+
+	public RegisterPage navigateToRegisterPage() {
+		eleUtil.clickWhenReady(registerLink, DEFAULT_TIMEOUT);
+		return new RegisterPage(driver);
+	}
 }
