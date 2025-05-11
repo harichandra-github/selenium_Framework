@@ -5,6 +5,9 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Properties;
 
 import com.qa.opencart.exceptions.FrameworkException;
@@ -94,26 +97,26 @@ public class DriverFactory {
 		try {
 			if (envName == null) {
 				//System.out.println("env is null, hence running the tests on QA env by default...");
-				Log.warn("env is null, hence running the tests on QA env by default...");
-				ip = new FileInputStream("./src/test/resources/config/qa.config.properties");
+				Log.warn("env is null, hence running the tests on Prod env by default...");
+				ip = new FileInputStream(AppConstants.CONFIG_PROD_FILE_PATH);
 			} else {
 				System.out.println("Running tests on env: " + envName);
 				Log.info("Running tests on env: " + envName);
 				switch (envName.toLowerCase().trim()) {
 					case "qa":
-						ip = new FileInputStream("./src/test/resources/config/qa.config.properties");
+						ip = new FileInputStream(AppConstants.CONFIG_QA_FILE_PATH);
 						break;
 					case "dev":
-						ip = new FileInputStream("./src/test/resources/config/dev.config.properties");
+						ip = new FileInputStream(AppConstants.CONFIG_DEV_FILE_PATH);
 						break;
 					case "stag":
-						ip = new FileInputStream("./src/test/resources/config/stag.config.properties");
+						ip = new FileInputStream(AppConstants.CONFIG_STAG_FILE_PATH);
 						break;
 					case "uat":
-						ip = new FileInputStream("./src/test/resources/config/uat.config.properties");
+						ip = new FileInputStream(AppConstants.CONFIG_UAT_FILE_PATH);
 						break;
 					case "prod":
-						ip = new FileInputStream("./src/test/resources/config/prod.config.properties");
+						ip = new FileInputStream(AppConstants.CONFIG_PROD_FILE_PATH);
 						break;
 
 					default:
@@ -142,20 +145,44 @@ public class DriverFactory {
 	 * takescreenshot
 	 */
 
-	public static File getScreenshotFile() {
-		File srcFile = ((TakesScreenshot) getDriver()).getScreenshotAs(OutputType.FILE);// temp dir
-		return srcFile;
+
+
+
+	public static File getScreenshotFile(String testName) {
+		try {
+			TakesScreenshot ts = (TakesScreenshot) getDriver();
+			File src = ts.getScreenshotAs(OutputType.FILE);
+
+			String timestamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+			File dest = new File("screenshots/" + testName + "_" + timestamp + ".png");
+
+			File screenshotsDir = new File("screenshots");
+			if (!screenshotsDir.exists()) {
+				screenshotsDir.mkdirs();
+			}
+			Files.copy(src.toPath(),dest.toPath());
+			Log.info("Screenshot saved to: " + dest.getAbsolutePath());
+			return dest;
+		} catch (Exception e) {
+			Log.error("Failed to capture screenshot file: " + e.getMessage());
+			return null;
+		}
 	}
 
+	public static String getScreenshotBase64() {
+		try {
+			TakesScreenshot ts = (TakesScreenshot) getDriver();
+			return ts.getScreenshotAs(OutputType.BASE64);
+		} catch (Exception e) {
+			Log.error("Failed to capture base64 screenshot: " + e.getMessage());
+			return "";
+		}
+	}
 	public static byte[] getScreenshotByte() {
 		return ((TakesScreenshot) getDriver()).getScreenshotAs(OutputType.BYTES);// temp dir
 
 	}
 
-	public static String getScreenshotBase64() {
-		return ((TakesScreenshot) getDriver()).getScreenshotAs(OutputType.BASE64);// temp dir
-
-	}
 
 }
 

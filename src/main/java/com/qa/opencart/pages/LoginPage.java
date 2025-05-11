@@ -1,6 +1,7 @@
 package com.qa.opencart.pages;
 
 import com.qa.opencart.logger.Log;
+import com.qa.opencart.reports.ExtentReportListener;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
@@ -29,12 +30,14 @@ public class LoginPage {
 	public String getLoginPageTitle() {
 		String title = eleUtil.waitFotTitleIs(LOGIN_PAGE_TITLE, DEFAULT_TIMEOUT);
 		Log.info("login page title: " + title);
+		ExtentReportListener.logInfo("login page title: " + title);
 		return title;
 	}
 
 	public String getLoginPageURL() {
 		String url = eleUtil.waitForURLContains(LOGIN_PAGE_FRACTION_URL, DEFAULT_TIMEOUT);
 		Log.info("login page url: " + url);
+		ExtentReportListener.logInfo("login page url: " + url);
 		return url;
 	}
 

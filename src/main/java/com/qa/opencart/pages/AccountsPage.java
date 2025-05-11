@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.qa.opencart.logger.Log;
+import com.qa.opencart.reports.ExtentReportListener;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -31,12 +32,14 @@ public class AccountsPage{
 	public String getAccPageTitle() {
 		String title = eleUtil.waitFotTitleIs(HOME_PAGE_TITLE, DEFAULT_TIMEOUT);
 		Log.info("home page title: " + title);
+		ExtentReportListener.logInfo("home page title: " + title);
 		return title;
 	}
 
 	public String getAccPageURL() {
 		String url = eleUtil.waitForURLContains(HOME_PAGE_FRACTION_URL, DEFAULT_TIMEOUT);
 		Log.info("home page url: " + url);
+		ExtentReportListener.logInfo("home page url: " + url);
 		return url;
 	}
 	

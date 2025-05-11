@@ -1,6 +1,7 @@
 package com.qa.opencart.pages;
 
 import com.qa.opencart.logger.Log;
+import com.qa.opencart.reports.ExtentReportListener;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
@@ -24,12 +25,14 @@ public class SearchResultsPage {
 		int searchCount = 
 				eleUtil.waitForAllElementsVisible(resultsProduct, AppConstants.MEDIUM_DEFAULT_TIMEOUT).size();
 		Log.info("total number of search products: "+ searchCount);
+		ExtentReportListener.logInfo("total number of search products: "+ searchCount);
 		return searchCount;
 	}
 	
 	
 	public ProductInfoPage selectProduct(String productName) {
 		Log.info("product name: "+ productName);
+		ExtentReportListener.logInfo("product name: "+ productName);
 		eleUtil.doClick(By.linkText(productName));
 		return new ProductInfoPage(driver);
 	}
