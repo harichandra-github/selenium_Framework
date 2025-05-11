@@ -1,5 +1,6 @@
 package com.qa.opencart.pages;
 
+import com.qa.opencart.logger.Log;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
@@ -24,14 +25,14 @@ public class ProductInfoPage {
 	
 	public String getProductHeader(){
 		String header = eleUtil.waitForElementVisible(productHeader, AppConstants.DEFAULT_TIMEOUT).getText();
-		System.out.println("product header: "+ header);
+		Log.info("product header: "+ header);
 		return header;
 	}
 	
 	public int getProductImagesCount() {
 		int imageCount = 
 				eleUtil.waitForAllElementsVisible(productImages, AppConstants.MEDIUM_DEFAULT_TIMEOUT).size();
-		System.out.println("Total number of images: " + imageCount);
+		Log.info("Total number of images: " + imageCount);
 		return imageCount;
 		
 	}

@@ -1,5 +1,6 @@
 package com.qa.opencart.pages;
 
+import com.qa.opencart.logger.Log;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
@@ -22,13 +23,13 @@ public class SearchResultsPage {
 	public int getResultsProductCount() {
 		int searchCount = 
 				eleUtil.waitForAllElementsVisible(resultsProduct, AppConstants.MEDIUM_DEFAULT_TIMEOUT).size();
-		System.out.println("total number of search products: "+ searchCount);
+		Log.info("total number of search products: "+ searchCount);
 		return searchCount;
 	}
 	
 	
 	public ProductInfoPage selectProduct(String productName) {
-		System.out.println("product name: "+ productName);
+		Log.info("product name: "+ productName);
 		eleUtil.doClick(By.linkText(productName));
 		return new ProductInfoPage(driver);
 	}

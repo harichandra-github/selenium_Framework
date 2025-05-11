@@ -7,6 +7,7 @@ import static com.qa.opencart.constants.AppConstants.HOME_PAGE_TITLE;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.qa.opencart.logger.Log;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -29,13 +30,13 @@ public class AccountsPage{
 
 	public String getAccPageTitle() {
 		String title = eleUtil.waitFotTitleIs(HOME_PAGE_TITLE, DEFAULT_TIMEOUT);
-		System.out.println("home page title: " + title);
+		Log.info("home page title: " + title);
 		return title;
 	}
 
 	public String getAccPageURL() {
 		String url = eleUtil.waitForURLContains(HOME_PAGE_FRACTION_URL, DEFAULT_TIMEOUT);
-		System.out.println("home page url: " + url);
+		Log.info("home page url: " + url);
 		return url;
 	}
 	
@@ -46,13 +47,13 @@ public class AccountsPage{
 			String text = e.getText();
 			headerValList.add(text);
 		}
-		System.out.println("Acc page headers: " + headerValList);
+		Log.info("Acc page headers: " + headerValList);
 		return headerValList;
 	}
 	
 	
 	public SearchResultsPage doSearch(String searchKey) {
-		System.out.println("search key: "+ searchKey);
+		Log.info("search key: "+ searchKey);
 		eleUtil.doSendKeys(search, searchKey);
 		eleUtil.doClick(searchIcon);
 		return new SearchResultsPage(driver);

@@ -1,5 +1,6 @@
 package com.qa.opencart.pages;
 
+import com.qa.opencart.logger.Log;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
@@ -26,13 +27,13 @@ public class LoginPage {
 	// 3. public page actions/methods
 	public String getLoginPageTitle() {
 		String title = eleUtil.waitFotTitleIs(LOGIN_PAGE_TITLE, DEFAULT_TIMEOUT);
-		System.out.println("login page title: " + title);
+		Log.info("login page title: " + title);
 		return title;
 	}
 
 	public String getLoginPageURL() {
 		String url = eleUtil.waitForURLContains(LOGIN_PAGE_FRACTION_URL, DEFAULT_TIMEOUT);
-		System.out.println("login page url: " + url);
+		Log.info("login page url: " + url);
 		return url;
 	}
 
@@ -41,7 +42,7 @@ public class LoginPage {
 	}
 
 	public AccountsPage doLogin(String username, String pwd) {
-		System.out.println("user credentials: " + username + ":" + pwd);
+		Log.info("user credentials: " + username + ":" + pwd);
 		eleUtil.waitForElementVisible(email, MEDIUM_DEFAULT_TIMEOUT).sendKeys(username);
 		eleUtil.doSendKeys(password, pwd);
 		eleUtil.doClick(loginBtn);
