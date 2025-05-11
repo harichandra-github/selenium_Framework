@@ -27,4 +27,10 @@ public class AppConstants {
 	//************Sheet Name********/
 	public static final String REGISTER_SHEET_NAME = "register";
 	public static final String PRODUCT_SHEET_NAME = "product";
+
+	public static final String CONFIG_QA_FILE_PATH="./src/test/resources/configuration/qa.config.properties";
+	public static final String CONFIG_PROD_FILE_PATH="./src/test/resources/configuration/config.properties";
+	public static final String CONFIG_UAT_FILE_PATH="./src/test/resources/configuration/uat.config.properties";
+	public static final String CONFIG_STAG_FILE_PATH="./src/test/resources/configuration/stag.config.properties";
+	public static final String CONFIG_DEV_FILE_PATH="./src/test/resources/configuration/dev.config.properties";
 }
